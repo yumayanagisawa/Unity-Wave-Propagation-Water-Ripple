@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/demo 1.unity
+- path: Assets/demo for 2018.2.unity
   isLoaded: 1
   isActive: 1
