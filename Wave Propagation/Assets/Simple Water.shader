@@ -5,6 +5,19 @@ Shader "Unlit/Simple Water"
 	{
 		iChannel1("Texture", 2D) = "white" {}
 		iMouse("mouse", Vector) = (0, 0, 0, 0)
+		handPos1("handPos1", Vector) = (0, 0, 0, 0)
+		handPos2("handPos2", Vector) = (0, 0, 0, 0)
+		handPos3("handPos3", Vector) = (0, 0, 0, 0)
+		handPos4("handPos4", Vector) = (0, 0, 0, 0)
+		handPos5("handPos5", Vector) = (0, 0, 0, 0)
+		handPos6("handPos6", Vector) = (0, 0, 0, 0)
+		handPos7("handPos7", Vector) = (0, 0, 0, 0)
+		handPos8("handPos8", Vector) = (0, 0, 0, 0)
+		handPos9("handPos9", Vector) = (0, 0, 0, 0)
+		handPos10("handPos10", Vector) = (0, 0, 0, 0)
+		handPos11("handPos11", Vector) = (0, 0, 0, 0)
+		handPos12("handPos12", Vector) = (0, 0, 0, 0)
+		iMouse("mouse", Vector) = (0, 0, 0, 0)
 		_RippleWidth("Ripple Width", float) = 1.0
 		_RippleHeight("Ripple Height", float) = 1.0
 	}
@@ -25,6 +38,18 @@ Shader "Unlit/Simple Water"
 
 			sampler2D _bufferA;
 			float3 iMouse;
+			float3 handPos1;
+			float3 handPos2;
+			float3 handPos3;
+			float3 handPos4;
+			float3 handPos5;
+			float3 handPos6;
+			float3 handPos7;
+			float3 handPos8;
+			float3 handPos9;
+			float3 handPos10;
+			float3 handPos11;
+			float3 handPos12;
 			float _RippleWidth;
 			float _RippleHeight;
 			
@@ -44,14 +69,13 @@ Shader "Unlit/Simple Water"
 				float p12 = tex2D(_bufferA, q + e.zy).x;
 
 				float d = 0.;
-
-				if (iMouse.z > 0.)
+				/*
+				if (handPos1.z > 0.)
 				{
 					// Mouse interaction:
-					//float2 ovalShape = (i.uv.x, i.uv.y * 0.7);
-					d = smoothstep(4.5, .5, length(iMouse.xy - (i.uv.xy *_ScreenParams.xy)));
+					//d = smoothstep(4.5, .5, length(iMouse.xy - (i.uv.xy *_ScreenParams.xy)));
 					//d = smoothstep(4.5, .5, length(iMouse.xy - (ovalShape *_ScreenParams.xy)));
-					d += smoothstep(4.5, .5, length((iMouse.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+					//d += smoothstep(4.5, .5, length((iMouse.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
 				}
 				else
 				{
@@ -61,6 +85,21 @@ Shader "Unlit/Simple Water"
 					float amp = 1. - step(.05, frac(t));
 					d = -amp * smoothstep(2.5, .5, length(pos - (i.uv.xy *_ScreenParams.xy)));
 				}
+				*/
+
+				// add ripples
+				d = smoothstep(4.5, .5, length(handPos1.xy - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos2.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos3.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos4.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos5.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos6.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos7.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos8.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos9.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos10.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos11.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos12.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
 
 				// The actual propagation:
 				d += -(p11 - .5)*2. + (p10 + p01 + p21 + p12 - 2.);

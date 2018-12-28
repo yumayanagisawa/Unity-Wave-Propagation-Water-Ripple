@@ -80,4 +80,16 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - handPos1: {r: 0, g: 0, b: 0, a: 0}
+    - handPos10: {r: 0, g: 0, b: 0, a: 0}
+    - handPos11: {r: 0, g: 0, b: 0, a: 0}
+    - handPos12: {r: 0, g: 0, b: 0, a: 0}
+    - handPos2: {r: 0, g: 0, b: 0, a: 0}
+    - handPos3: {r: 0, g: 0, b: 0, a: 0}
+    - handPos4: {r: 0, g: 0, b: 0, a: 0}
+    - handPos5: {r: 0, g: 0, b: 0, a: 0}
+    - handPos6: {r: 0, g: 0, b: 0, a: 0}
+    - handPos7: {r: 0, g: 0, b: 0, a: 0}
+    - handPos8: {r: 0, g: 0, b: 0, a: 0}
+    - handPos9: {r: 0, g: 0, b: 0, a: 0}
     - iMouse: {r: 0, g: 0, b: 0, a: 0}
