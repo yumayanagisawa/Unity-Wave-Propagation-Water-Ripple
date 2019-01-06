@@ -89,17 +89,17 @@ Shader "Unlit/Simple Water"
 
 				// add ripples
 				d = smoothstep(4.5, .5, length(handPos1.xy - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos2.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos3.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos4.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos5.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos6.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos7.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos8.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos9.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos10.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos11.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos12.xy * 0.5) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos2.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos3.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos4.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos5.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos6.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos7.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos8.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos9.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos10.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos11.xy) - (i.uv.xy *_ScreenParams.xy)));
+				d += smoothstep(4.5, .5, length((handPos12.xy) - (i.uv.xy *_ScreenParams.xy)));
 
 				// The actual propagation:
 				d += -(p11 - .5)*2. + (p10 + p01 + p21 + p12 - 2.);
@@ -141,10 +141,15 @@ Shader "Unlit/Simple Water"
 				float3 grad = normalize(float3(p21 - p01, p12 - p10, 1.));
 				//float4 c = tex2D(iChannel1, fragCoord.xy*2. / iChannelResolution[1].xy + grad.xy*.35);
 				float4 c = tex2D(iChannel1, ((i.uv.xy *_ScreenParams.xy)*1.) / (_ScreenParams.xy + grad.xy*.35));
-				float3 light = normalize(float3(.2,-.5,.7));
+				// multiply color, before adding ripples.
+				c *= 1.7;
+				//float3 light = normalize(float3(.2,-.5,.7));
+				float3 light = normalize(float3(1., 1., 1.));
 				float diffuse = dot(grad,light);
 				float spec = pow(max(0.,-reflect(light,grad).z),32.);
-				return lerp(c,float4(.7,.8,1.,1.),.25)*max(diffuse,0.) + spec;
+				// original method
+				//return lerp(c, float4(.7, .8, 1., 1.), .25)*max(diffuse, 0.) +spec;
+				return c*max(diffuse, 0.0) + spec;
 
 				#else
 				//return fixed4(0, 0, 0, 0);
