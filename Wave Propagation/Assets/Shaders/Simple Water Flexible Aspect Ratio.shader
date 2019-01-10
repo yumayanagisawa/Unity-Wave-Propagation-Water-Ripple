@@ -20,6 +20,7 @@ Shader "Unlit/Simple Water Flexible Aspect Ratio"
 		iMouse("mouse", Vector) = (0, 0, 0, 0)
 		_RippleWidth("Ripple Width", float) = 1.0
 		_RippleHeight("Ripple Height", float) = 1.0
+		waveScaleFactor("Wave Scale", Range(5.0,10.0)) = 7.5
 	}
 	SubShader
 	{
@@ -51,6 +52,7 @@ Shader "Unlit/Simple Water Flexible Aspect Ratio"
 			float _RippleWidth;
 			float _RippleHeight;
 			float4 _bufferA_ST;
+			float waveScaleFactor;
 
 			struct appdata
 			{
@@ -98,18 +100,18 @@ Shader "Unlit/Simple Water Flexible Aspect Ratio"
 				float d = 0.;
 
 				// add ripples
-				d = smoothstep(4.5, .5, length(handPos1.xy - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos2.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos3.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos4.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos5.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos6.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos7.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos8.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos9.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos10.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos11.xy) - (q *_ScreenParams.xy)));
-				d += smoothstep(4.5, .5, length((handPos12.xy) - (q *_ScreenParams.xy)));
+				d = smoothstep(waveScaleFactor, .5, length(handPos1.xy - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos2.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos3.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos4.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos5.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos6.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos7.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos8.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos9.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos10.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos11.xy) - (q *_ScreenParams.xy)));
+				d += smoothstep(waveScaleFactor, .5, length((handPos12.xy) - (q *_ScreenParams.xy)));
 
 				// The actual propagation:
 				d += -(p11 - .5)*2. + (p10 + p01 + p21 + p12 - 2.);
