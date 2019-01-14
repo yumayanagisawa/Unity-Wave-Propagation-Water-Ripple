@@ -21,6 +21,7 @@ Shader "Unlit/Simple Water Flexible Aspect Ratio"
 		_RippleWidth("Ripple Width", float) = 1.0
 		_RippleHeight("Ripple Height", float) = 1.0
 		waveScaleFactor("Wave Scale", Range(5.0,10.0)) = 7.5
+		_specular("Specular", Range(10.0,100.0)) = 10.0
 	}
 	SubShader
 	{
@@ -136,6 +137,7 @@ Shader "Unlit/Simple Water Flexible Aspect Ratio"
 			float4 iChannel1_ST;
 			float4 _bufferA_ST;
 			float3 iMouse;
+			float _specular;
 
 			#define TEXTURED 1
 
@@ -191,7 +193,7 @@ Shader "Unlit/Simple Water Flexible Aspect Ratio"
 				//float3 light = normalize(float3(.2,-.5,.7));
 				float3 light = normalize(float3(1., 1., 1.));
 				float diffuse = dot(grad,light);
-				float spec = pow(max(0.,-reflect(light,grad).z),32.);
+				float spec = pow(max(0.,-reflect(light,grad).z),32.) * _specular;
 				// original method
 				//return lerp(c, float4(.7, .8, 1., 1.), .25)*max(diffuse, 0.) +spec;
 				return c * max(diffuse, 0.0) + spec;
